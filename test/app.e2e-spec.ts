@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
+import { AppModule } from '../src/app.module';
 import { getConnection } from 'typeorm';
 
 const mockData = [
@@ -63,10 +63,10 @@ describe('TODO API tests', () => {
   it('/todos?page=1&limit=1 (GET)', () => {
     const expected = {
       data: mockData.slice(0, 1),
-      count: 1,
       total: mockData.length,
-      page: 1,
       pageCount: mockData.length,
+      count: 1,
+      page: 1,
     };
 
     return request(app.getHttpServer())
@@ -110,7 +110,7 @@ describe('TODO API tests', () => {
       description: 'updated_descr',
     };
 
-    const res = [
+    const expected = [
       {
         id: 1,
         ...updatedFields,
@@ -123,6 +123,9 @@ describe('TODO API tests', () => {
       .send(updatedFields)
       .expect(200);
 
-    return request(app.getHttpServer()).get('/todos').expect(200).expect(res);
+    return request(app.getHttpServer())
+      .get('/todos')
+      .expect(200)
+      .expect(expected);
   });
 });

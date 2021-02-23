@@ -31,6 +31,14 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## API
+```bash
+GET     /todos?page=1&limit=1                                      - get todos with pagination
+POST    /todos                    { name, title, description }     - create new todo
+DELETE  /todos/:id                                                 - delete todo
+PUT     /todos/:id                { name, title, description }     - update todo 
+```
+
 ## Test
 
 ```bash
